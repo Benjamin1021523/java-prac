@@ -1,21 +1,38 @@
 import java.io.*;
 import java.net.*;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class ConnectWeb{
     public static void main(String[] args){
+        System.out.println("******HTTP part******");
         http();
+        System.out.println("\n******HTTPS part******");
         https();
     }
-    static void https(){//https目前失敗
+    static void https(){
         String target = "https://gist.githubusercontent.com/Benjamin1021523/1701eb96206b779e1595ce0cc3f82466/raw/fc71033195bdec93457f39fe26cbef74701dcce2/Example.java";
+        try {
+            URL url = new URL(target);
+            HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
+
+            String TextContent = readAll(con.getInputStream(), "UTF-8");
+
+            System.out.println(TextContent);
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
     }
     static void http(){
         String target = "http://127.0.0.1:5000/show/";
         try{
             URL url = new URL(target);
             InputStream stream = url.openStream();
-            String content = readAll(stream, "UTF-8");
-            System.out.print(content);
+
+            String TextContent = readAll(stream, "UTF-8");
+
+            System.out.print(TextContent);
         }
         catch(Exception e){
             System.out.println(e);
