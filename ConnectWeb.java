@@ -24,13 +24,8 @@ public class ConnectWeb{
         }
     }
     static void https(String target){
-        try {
-            URL url = new URL(target);
-            HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
-
-            String TextContent = readAll(con.getInputStream(), "UTF-8");
-
-            System.out.println(TextContent);
+        try{
+            System.out.println(visit_https(target));
         }
         catch(Exception e){
             System.out.println(e);
@@ -38,26 +33,22 @@ public class ConnectWeb{
     }
     static void https(){
         String target = "https://gist.githubusercontent.com/Benjamin1021523/1701eb96206b779e1595ce0cc3f82466/raw/fc71033195bdec93457f39fe26cbef74701dcce2/Example.java";
-        try {
-            URL url = new URL(target);
-            HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
-
-            String TextContent = readAll(con.getInputStream(), "UTF-8");
-
-            System.out.println(TextContent);
+        try{
+            System.out.println(visit_https(target));
         }
         catch(Exception e){
             System.out.println(e);
         }
     }
+    static String visit_https(String target) throws IOException{
+        URL url = new URL(target);
+        HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
+        String TextContent = readAll(con.getInputStream(), "UTF-8");
+        return TextContent;
+    }
     static void http(String target){
         try{
-            URL url = new URL(target);
-            InputStream stream = url.openStream();
-
-            String TextContent = readAll(stream, "UTF-8");
-
-            System.out.print(TextContent);
+            System.out.println(visit_http(target));
         }
         catch(Exception e){
             System.out.println(e);
@@ -66,16 +57,17 @@ public class ConnectWeb{
     static void http(){
         String target = "http://127.0.0.1:5000/show/";
         try{
-            URL url = new URL(target);
-            InputStream stream = url.openStream();
-
-            String TextContent = readAll(stream, "UTF-8");
-
-            System.out.print(TextContent);
+            System.out.println(visit_http(target));
         }
         catch(Exception e){
             System.out.println(e);
         }
+    }
+    static String visit_http(String target) throws IOException{
+        URL url = new URL(target);
+        InputStream stream = url.openStream();
+        String TextContent = readAll(stream, "UTF-8");
+        return TextContent;
     }
     static String readAll( InputStream stream, String charcode ) throws IOException{
         BufferedReader reader = new BufferedReader(
